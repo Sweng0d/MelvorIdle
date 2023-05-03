@@ -1,4 +1,3 @@
-
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.10;
 
@@ -23,7 +22,6 @@ contract MelvorIdle {
         uint gold;
         uint levelWoodcutting;
         uint levelFishing;
-
     }
 
     enum Classes {
