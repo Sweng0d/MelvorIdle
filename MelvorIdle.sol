@@ -10,7 +10,8 @@ contract MelvorIdle {
     uint public startLevel = 1;
     uint public maxLevel = 99;
 
-    mapping(address => uint) myCharacters;
+    mapping(uint => address) public characterToOwner;
+    mapping(address => uint) public numOfCharacters;
 
     event CharacterCreated(address indexed owner);
 
@@ -31,11 +32,12 @@ contract MelvorIdle {
         Mage
     }
 
-    function _createCharacter(string memory _name, Classes _class) public {
-        //require(msg.value == 1 ether);
+    function _createCharacter(string memory _name, Classes _class) public payable {
+        require(msg.value == 1 ether);
         character.push(Character(character.length, _name, msg.sender, _class, initialGold, startLevel, startLevel));
-        //myCharacters[msg.sender] = character.length -1;
-        //emit CharacterCreated(msg.sender);
+        characterToOwner[character.length] = msg.sender;
+        numOfCharacters[msg.sender] ++;
+        emit CharacterCreated(msg.sender);
     }
 
 }
