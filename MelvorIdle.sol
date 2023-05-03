@@ -8,6 +8,7 @@ contract MelvorIdle {
     uint public initialGold = 0;
     uint public startLevel = 1;
     uint public maxLevel = 99;
+    uint public initialItens = 0;
 
     mapping(uint => address) public characterToOwner;
     mapping(address => uint) public numOfCharacters;
@@ -22,6 +23,8 @@ contract MelvorIdle {
         uint gold;
         uint levelWoodcutting;
         uint levelFishing;
+        uint wood;
+        uint fish;
     }
 
     enum Classes {
@@ -32,7 +35,7 @@ contract MelvorIdle {
 
     function _createCharacter(string memory _name, Classes _class) public payable {
         require(msg.value == 1 ether);
-        character.push(Character(character.length, _name, msg.sender, _class, initialGold, startLevel, startLevel));
+        character.push(Character(character.length, _name, msg.sender, _class, initialGold, startLevel, startLevel, initialItens, initialItens));
         characterToOwner[character.length] = msg.sender;
         numOfCharacters[msg.sender] ++;
         emit CharacterCreated(msg.sender);
