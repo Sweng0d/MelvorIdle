@@ -4,7 +4,6 @@ pragma solidity 0.8.10;
 contract MelvorIdle {
     
     Character[] public character;
-    Classes public class;
     uint public initialGold = 0;
     uint public startLevel = 1;
     uint public maxLevel = 99;
