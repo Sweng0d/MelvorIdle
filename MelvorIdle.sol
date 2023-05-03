@@ -1,11 +1,11 @@
 
 // SPDX-License-Identifier: MIT
-pragma solidity 0.8.17;
+pragma solidity 0.8.10;
 
 contract MelvorIdle {
     
     Character[] public character;
-    Classes internal class;
+    Classes public class;
     uint public initialGold = 0;
     uint public startLevel = 1;
     uint public maxLevel = 99;
@@ -31,10 +31,10 @@ contract MelvorIdle {
         Mage
     }
 
-    function _createCharacter(string memory _name, Classes _class) public payable {
+    function _createCharacter(string memory _name, Classes _class) public {
         //require(msg.value == 1 ether);
-        character.push(Character(character.length - 1, _name, msg.sender, _class, initialGold, startLevel, startLevel));
-        myCharacters[msg.sender] = character.length -1;
+        character.push(Character(character.length, _name, msg.sender, _class, initialGold, startLevel, startLevel));
+        //myCharacters[msg.sender] = character.length -1;
         //emit CharacterCreated(msg.sender);
     }
 
