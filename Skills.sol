@@ -23,7 +23,7 @@ contract Skills is MelvorIdle {
 
     function stopLastSkillFarm(uint _id) public ownerId(_id) {
         if (woodcutting[_id] == true){
-            acumulatedTimeWoodcutting[_id] = block.timestamp - timeWoodcutting[_id];
+            acumulatedTimeWoodcutting[_id] += block.timestamp - timeWoodcutting[_id];
             woodcutting[_id] = false; // is it necessary?
         }
     }
@@ -35,15 +35,16 @@ contract Skills is MelvorIdle {
     }
 
     function _levelUpWoodcutting(uint _id) public ownerId(_id){
-        require(timeWoodcutting[_id] >= 10 ^(character[(_id)].levelWoodcutting - 1) * 6);
+        stopLastSkillFarm(_id);
+        require(acumulatedTimeWoodcutting[_id] >= 10 ^(character[(_id)].levelWoodcutting - 1) * 6, "you dont have xp enough");
         for (uint i = (character[(_id)].levelWoodcutting); i < 8; i++){
+            if(acumulatedTimeWoodcutting[_id] < (10 ^(character[(_id)].levelWoodcutting - 1)) * 6){
+                break;
+            }
           acumulatedTimeWoodcutting[_id] = acumulatedTimeWoodcutting[_id] - (10 ^(character[(_id)].levelWoodcutting - 1)) * 6;
           character[(_id)].levelWoodcutting++;
         }
-        //checar o nível e ver se tem mais do que o necessário
-        character[(_id)].levelWoodcutting++;
-        acumulatedTimeWoodcutting[_id] = 0; //nao é igual zero, é a diferença do necessario
     }
 
-    
+        //for (uint i = (character[(_id)].levelWoodcutting); i < 8; i++){
 }
