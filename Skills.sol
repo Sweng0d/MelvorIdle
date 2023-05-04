@@ -37,14 +37,7 @@ contract Skills is MelvorIdle {
     function _levelUpWoodcutting(uint _id) public ownerId(_id){
         stopLastSkillFarm(_id);
         require(acumulatedTimeWoodcutting[_id] >= 10 ^(character[(_id)].levelWoodcutting - 1) * 6, "you dont have xp enough");
-        for (uint i = (character[(_id)].levelWoodcutting); i < 8; i++){
-            if(acumulatedTimeWoodcutting[_id] < (10 ^(character[(_id)].levelWoodcutting - 1)) * 6){
-                break;
-            }
-          acumulatedTimeWoodcutting[_id] = acumulatedTimeWoodcutting[_id] - (10 ^(character[(_id)].levelWoodcutting - 1)) * 6;
-          character[(_id)].levelWoodcutting++;
-        }
+        acumulatedTimeWoodcutting[_id] -= 10 ^(character[(_id)].levelWoodcutting - 1) * 6;
+        character[(_id)].levelWoodcutting++;
     }
-
-        //for (uint i = (character[(_id)].levelWoodcutting); i < 8; i++){
 }
